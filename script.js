@@ -5,16 +5,256 @@
 let trades = [];
 let chart = null;
 let editingTradeId = null;
+let currentUser = null;
 
 // Initialize on DOM load
 document.addEventListener('DOMContentLoaded', () => {
+    checkAuthStatus();
+    setupAuthEventListeners();
+    setupEventListeners();
+});
+
+// Check authentication status
+function checkAuthStatus() {
+    const user = localStorage.getItem('tradingJournalUser');
+    if (user) {
+        currentUser = JSON.parse(user);
+        showLoggedInState();
+        loadTrades();
+        initializeChart();
+        renderTrades();
+        updateStats();
+        updateFilterOptions();
+    } else {
+        showLoggedOutState();
+    }
+}
+
+// Show logged in state UI
+function showLoggedInState() {
+    document.getElementById('authButtons').style.display = 'none';
+    document.getElementById('userMenu').style.display = 'flex';
+    document.getElementById('mainNav').style.display = 'flex';
+    document.getElementById('userName').textContent = currentUser.username;
+}
+
+// Show logged out state UI
+function showLoggedOutState() {
+    document.getElementById('authButtons').style.display = 'flex';
+    document.getElementById('userMenu').style.display = 'none';
+    document.getElementById('mainNav').style.display = 'none';
+    trades = [];
+    renderTrades();
+    updateStats();
+}
+
+// Auth Event Listeners
+function setupAuthEventListeners() {
+    const authModal = document.getElementById('authModal');
+    const loginBtn = document.getElementById('loginBtn');
+    const registerBtn = document.getElementById('registerBtn');
+    const closeAuthModal = document.getElementById('closeAuthModal');
+    const showRegister = document.getElementById('showRegister');
+    const showLogin = document.getElementById('showLogin');
+    const loginFormSubmit = document.getElementById('loginFormSubmit');
+    const registerFormSubmit = document.getElementById('registerFormSubmit');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    // Open auth modal for login
+    loginBtn.addEventListener('click', () => {
+        openAuthModal('login');
+    });
+
+    // Open auth modal for register
+    registerBtn.addEventListener('click', () => {
+        openAuthModal('register');
+    });
+
+    // Close auth modal
+    closeAuthModal.addEventListener('click', () => {
+        closeAuthModalHandler();
+    });
+
+    authModal.querySelector('.modal-backdrop').addEventListener('click', () => {
+        closeAuthModalHandler();
+    });
+
+    // Switch to register form
+    showRegister.addEventListener('click', () => {
+        document.getElementById('loginForm').style.display = 'none';
+        document.getElementById('registerForm').style.display = 'block';
+        clearAuthErrors();
+    });
+
+    // Switch to login form
+    showLogin.addEventListener('click', () => {
+        document.getElementById('registerForm').style.display = 'none';
+        document.getElementById('loginForm').style.display = 'block';
+        clearAuthErrors();
+    });
+
+    // Login form submission
+    loginFormSubmit.addEventListener('submit', handleLogin);
+
+    // Register form submission
+    registerFormSubmit.addEventListener('submit', handleRegister);
+
+    // Logout
+    logoutBtn.addEventListener('click', handleLogout);
+
+    // Escape key closes auth modal
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && authModal.classList.contains('active')) {
+            closeAuthModalHandler();
+        }
+    });
+}
+
+// Open auth modal
+function openAuthModal(mode) {
+    const authModal = document.getElementById('authModal');
+    if (mode === 'register') {
+        document.getElementById('loginForm').style.display = 'none';
+        document.getElementById('registerForm').style.display = 'block';
+    } else {
+        document.getElementById('registerForm').style.display = 'none';
+        document.getElementById('loginForm').style.display = 'block';
+    }
+    clearAuthErrors();
+    authModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+// Close auth modal
+function closeAuthModalHandler() {
+    const authModal = document.getElementById('authModal');
+    authModal.classList.remove('active');
+    document.body.style.overflow = '';
+    clearAuthForms();
+}
+
+// Clear auth forms
+function clearAuthForms() {
+    document.getElementById('loginFormSubmit').reset();
+    document.getElementById('registerFormSubmit').reset();
+    clearAuthErrors();
+}
+
+// Clear auth errors
+function clearAuthErrors() {
+    document.getElementById('loginError').textContent = '';
+    document.getElementById('loginError').classList.remove('active');
+    document.getElementById('registerError').textContent = '';
+    document.getElementById('registerError').classList.remove('active');
+}
+
+// Show error
+function showError(elementId, message) {
+    const errorEl = document.getElementById(elementId);
+    errorEl.textContent = message;
+    errorEl.classList.add('active');
+}
+
+// Handle login
+function handleLogin(e) {
+    e.preventDefault();
+    clearAuthErrors();
+
+    const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+    const password = document.getElementById('loginPassword').value;
+
+    // Get users from storage
+    const users = JSON.parse(localStorage.getItem('tradingJournalUsers') || '[]');
+
+    // Find user
+    const user = users.find(u => u.email === email && u.password === password);
+
+    if (!user) {
+        showError('loginError', 'Invalid email or password');
+        return;
+    }
+
+    // Login successful
+    currentUser = { id: user.id, username: user.username, email: user.email };
+    localStorage.setItem('tradingJournalUser', JSON.stringify(currentUser));
+
+    closeAuthModalHandler();
+    showLoggedInState();
     loadTrades();
     initializeChart();
-    setupEventListeners();
     renderTrades();
     updateStats();
     updateFilterOptions();
-});
+}
+
+// Handle register
+function handleRegister(e) {
+    e.preventDefault();
+    clearAuthErrors();
+
+    const username = document.getElementById('registerUsername').value.trim();
+    const email = document.getElementById('registerEmail').value.trim().toLowerCase();
+    const password = document.getElementById('registerPassword').value;
+    const confirmPassword = document.getElementById('registerConfirmPassword').value;
+
+    // Validation
+    if (username.length < 2) {
+        showError('registerError', 'Username must be at least 2 characters');
+        return;
+    }
+
+    if (password.length < 6) {
+        showError('registerError', 'Password must be at least 6 characters');
+        return;
+    }
+
+    if (password !== confirmPassword) {
+        showError('registerError', 'Passwords do not match');
+        return;
+    }
+
+    // Get existing users
+    const users = JSON.parse(localStorage.getItem('tradingJournalUsers') || '[]');
+
+    // Check if email already exists
+    if (users.some(u => u.email === email)) {
+        showError('registerError', 'Email already registered');
+        return;
+    }
+
+    // Create new user
+    const newUser = {
+        id: 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+        username,
+        email,
+        password,
+        createdAt: new Date().toISOString()
+    };
+
+    users.push(newUser);
+    localStorage.setItem('tradingJournalUsers', JSON.stringify(users));
+
+    // Auto login
+    currentUser = { id: newUser.id, username: newUser.username, email: newUser.email };
+    localStorage.setItem('tradingJournalUser', JSON.stringify(currentUser));
+
+    closeAuthModalHandler();
+    showLoggedInState();
+    trades = [];
+    initializeChart();
+    renderTrades();
+    updateStats();
+}
+
+// Handle logout
+function handleLogout() {
+    if (confirm('Are you sure you want to logout?')) {
+        localStorage.removeItem('tradingJournalUser');
+        currentUser = null;
+        trades = [];
+        showLoggedOutState();
+    }
+}
 
 // Load trades from localStorage
 function loadTrades() {
