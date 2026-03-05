@@ -43,9 +43,10 @@ function showLoggedInState() {
 
 // Show logged out state UI
 function showLoggedOutState() {
-    document.getElementById('authButtons').style.display = 'flex';
-    document.getElementById('userMenu').style.display = 'none';
-    document.getElementById('mainNav').style.display = 'none';
+    // Redirect to login page if not logged in
+    window.location.href = 'login.html';
+}
+
 function setupAuthEventListeners() {
     const authModal = document.getElementById('authModal');
     const loginBtn = document.getElementById('loginBtn');
@@ -604,5 +605,4 @@ function formatNumber(num) {
 function formatDate(dateStr) {
     const date = new Date(dateStr);
     return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-}
 }
