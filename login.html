@@ -15,6 +15,7 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
+            background: var(--bg-primary);
         }
         .auth-page-container {
             width: 100%;
@@ -27,6 +28,14 @@
         .auth-page-logo .logo {
             justify-content: center;
             font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .auth-page-logo .logo-icon {
+            width: 32px;
+            height: 32px;
+            color: var(--accent-primary);
         }
         .auth-page-card {
             background: var(--bg-secondary);
@@ -49,11 +58,34 @@
         .auth-page-card .form-group {
             margin-bottom: 16px;
         }
+        .auth-page-card .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+        .auth-page-card .form-group input {
+            width: 100%;
+            padding: 10px 12px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+        .auth-page-card .form-group input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+        }
         .auth-page-card .btn-full {
             width: 100%;
             justify-content: center;
             padding: 12px;
             margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         .auth-page-card .auth-switch {
             text-align: center;
@@ -64,6 +96,29 @@
         .auth-page-card .auth-switch p {
             color: var(--text-secondary);
             font-size: 0.9rem;
+        }
+        .link-btn {
+            background: none;
+            border: none;
+            color: var(--accent-primary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 0;
+            margin-left: 4px;
+        }
+        .link-btn:hover {
+            color: var(--accent-hover);
+            text-decoration: underline;
+        }
+        .form-error {
+            color: var(--accent-danger);
+            font-size: 0.85rem;
+            margin-top: 8px;
+            display: none;
+        }
+        .form-error.active {
+            display: block;
         }
     </style>
 </head>
@@ -132,24 +187,24 @@
 
     <script>
         // Check if already logged in
-        const user = localStorage.getItem('tradingJournalUser');
+        var user = localStorage.getItem('tradingJournalUser');
         if (user) {
             window.location.href = 'index.html';
         }
 
         // Auth functions
-        const showRegister = document.getElementById('showRegister');
-        const showLogin = document.getElementById('showLogin');
-        const loginFormSubmit = document.getElementById('loginFormSubmit');
-        const registerFormSubmit = document.getElementById('registerFormSubmit');
+        var showRegister = document.getElementById('showRegister');
+        var showLogin = document.getElementById('showLogin');
+        var loginFormSubmit = document.getElementById('loginFormSubmit');
+        var registerFormSubmit = document.getElementById('registerFormSubmit');
 
-        showRegister.addEventListener('click', () => {
+        showRegister.addEventListener('click', function() {
             document.getElementById('loginForm').style.display = 'none';
             document.getElementById('registerForm').style.display = 'block';
             clearAuthErrors();
         });
 
-        showLogin.addEventListener('click', () => {
+        showLogin.addEventListener('click', function() {
             document.getElementById('registerForm').style.display = 'none';
             document.getElementById('loginForm').style.display = 'block';
             clearAuthErrors();
@@ -163,7 +218,7 @@
         }
 
         function showError(elementId, message) {
-            const errorEl = document.getElementById(elementId);
+            var errorEl = document.getElementById(elementId);
             errorEl.textContent = message;
             errorEl.classList.add('active');
         }
@@ -173,18 +228,18 @@
             e.preventDefault();
             clearAuthErrors();
 
-            const email = document.getElementById('loginEmail').value.trim().toLowerCase();
-            const password = document.getElementById('loginPassword').value;
+            var email = document.getElementById('loginEmail').value.trim().toLowerCase();
+            var password = document.getElementById('loginPassword').value;
 
-            const users = JSON.parse(localStorage.getItem('tradingJournalUsers') || '[]');
-            const user = users.find(u => u.email === email && u.password === password);
+            var users = JSON.parse(localStorage.getItem('tradingJournalUsers') || '[]');
+            var user = users.find(function(u) { return u.email === email && u.password === password; });
 
             if (!user) {
                 showError('loginError', 'Invalid email or password');
                 return;
             }
 
-            const currentUser = { id: user.id, username: user.username, email: user.email };
+            var currentUser = { id: user.id, username: user.username, email: user.email };
             localStorage.setItem('tradingJournalUser', JSON.stringify(currentUser));
             window.location.href = 'index.html';
         });
@@ -194,10 +249,10 @@
             e.preventDefault();
             clearAuthErrors();
 
-            const username = document.getElementById('registerUsername').value.trim();
-            const email = document.getElementById('registerEmail').value.trim().toLowerCase();
-            const password = document.getElementById('registerPassword').value;
-            const confirmPassword = document.getElementById('registerConfirmPassword').value;
+            var username = document.getElementById('registerUsername').value.trim();
+            var email = document.getElementById('registerEmail').value.trim().toLowerCase();
+            var password = document.getElementById('registerPassword').value;
+            var confirmPassword = document.getElementById('registerConfirmPassword').value;
 
             if (username.length < 2) {
                 showError('registerError', 'Username must be at least 2 characters');
@@ -214,25 +269,25 @@
                 return;
             }
 
-            const users = JSON.parse(localStorage.getItem('tradingJournalUsers') || '[]');
+            var users = JSON.parse(localStorage.getItem('tradingJournalUsers') || '[]');
 
-            if (users.some(u => u.email === email)) {
+            if (users.some(function(u) { return u.email === email; })) {
                 showError('registerError', 'Email already registered');
                 return;
             }
 
-            const newUser = {
+            var newUser = {
                 id: 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
-                username,
-                email,
-                password,
+                username: username,
+                email: email,
+                password: password,
                 createdAt: new Date().toISOString()
             };
 
             users.push(newUser);
             localStorage.setItem('tradingJournalUsers', JSON.stringify(users));
 
-            const currentUser = { id: newUser.id, username: newUser.username, email: newUser.email };
+            var currentUser = { id: newUser.id, username: newUser.username, email: newUser.email };
             localStorage.setItem('tradingJournalUser', JSON.stringify(currentUser));
             window.location.href = 'index.html';
         });
