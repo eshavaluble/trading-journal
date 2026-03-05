@@ -13,3 +13,4 @@
 - User-specific data storage in localStorage
 - Protected dashboard access
 
+
