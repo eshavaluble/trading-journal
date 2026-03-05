@@ -27,6 +27,8 @@ function checkAuthStatus() {
         updateFilterOptions();
     } else {
         showLoggedOutState();
+        // Show auth modal by default for new visitors
+        openAuthModal('login');
     }
 }
 
@@ -35,6 +37,7 @@ function showLoggedInState() {
     document.getElementById('authButtons').style.display = 'none';
     document.getElementById('userMenu').style.display = 'flex';
     document.getElementById('mainNav').style.display = 'flex';
+    document.getElementById('mainContent').style.display = 'block';
     document.getElementById('userName').textContent = currentUser.username;
 }
 
@@ -43,6 +46,7 @@ function showLoggedOutState() {
     document.getElementById('authButtons').style.display = 'flex';
     document.getElementById('userMenu').style.display = 'none';
     document.getElementById('mainNav').style.display = 'none';
+    document.getElementById('mainContent').style.display = 'none';
     trades = [];
     renderTrades();
     updateStats();
