@@ -46,13 +46,6 @@ function showLoggedOutState() {
     document.getElementById('authButtons').style.display = 'flex';
     document.getElementById('userMenu').style.display = 'none';
     document.getElementById('mainNav').style.display = 'none';
-    document.getElementById('mainContent').style.display = 'none';
-    trades = [];
-    renderTrades();
-    updateStats();
-}
-
-// Auth Event Listeners
 function setupAuthEventListeners() {
     const authModal = document.getElementById('authModal');
     const loginBtn = document.getElementById('loginBtn');
