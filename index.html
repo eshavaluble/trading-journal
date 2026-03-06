@@ -1,123 +1,293 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trading Journal</title>
+    <title>Dashboard - Volubit Trading Journal</title>
+    <meta name="description"
+        content="Dashboard trading journal kripto Anda - pantau PnL, statistik, dan semua trade dalam satu tempat.">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
+    <!-- Header / Navbar -->
     <header class="header">
         <div class="container header-content">
-            <div class="logo">
+            <a href="index.html" class="logo">
                 <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polyline points="22,7 13.5,15.5 8.5,10.5 2,17"></polyline>
                     <polyline points="16,7 22,7 22,13"></polyline>
                 </svg>
-                <span>TradeJournal</span>
-            </div>
+                <span>Volubit</span>
+            </a>
             <nav class="nav">
-                <a href="#" class="nav-link active">Dashboard</a>
-                <a href="#" class="nav-link">Analytics</a>
-                <a href="#" class="nav-link">Settings</a>
+                <a href="index.html" class="nav-link active" id="nav-dashboard">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                    Dashboard
+                </a>
+                <a href="modules.html" class="nav-link" id="nav-modules">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15">
+                        <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"></path>
+                        <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"></path>
+                    </svg>
+                    Modul
+                </a>
+                <a href="risk-management.html" class="nav-link" id="nav-risk">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    </svg>
+                    Risk Management
+                </a>
+                <a href="about.html" class="nav-link" id="nav-about">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    Tentang Kami
+                </a>
             </nav>
             <div class="user-menu">
-                <span class="user-name" id="userName">User</span>
-                <button class="btn btn-secondary" id="logoutBtn">Logout</button>
+                <div class="user-avatar" id="userAvatar">V</div>
+                <div class="user-info">
+                    <span class="user-name" id="userName">Trader</span>
+                    <span class="user-label">Crypto Trader</span>
+                </div>
+                <button class="btn btn-outline" id="logoutBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"></path>
+                        <polyline points="16,17 21,12 16,7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    Logout
+                </button>
             </div>
+        </div>
     </header>
 
     <main class="main">
         <div class="container">
+
+            <!-- Dashboard Header -->
             <div class="dashboard-header">
-                <h1>Trading Dashboard</h1>
+                <div>
+                    <h1>Trading Dashboard</h1>
+                    <p class="dashboard-subtitle">Pantau performa trading kripto kamu</p>
+                </div>
                 <button class="btn btn-primary" id="addTradeBtn">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                         <line x1="12" y1="5" x2="12" y2="19"></line>
                         <line x1="5" y1="12" x2="19" y2="12"></line>
                     </svg>
-                    Add Trade
+                    Tambah Trade
                 </button>
             </div>
 
+            <!-- Stats Grid -->
             <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-label">Total P&L</div>
-                    <div class="stat-value" id="totalPnL">$0.00</div>
-                    <div class="stat-change positive" id="pnlChange">+0.00%</div>
-                <div class="stat-card">
-                    <div class="stat-label">Win Rate</div>
-                    <div class="stat-value" id="winRate">0%</div>
-                    <div class="stat-change" id="winRateChange">0 / 0 trades</div>
-                <div class="stat-card">
-                    <div class="stat-label">Total Trades</div>
-                    <div class="stat-value" id="totalTrades">0</div>
-                    <div class="stat-change">All time</div>
-                <div class="stat-card">
-                    <div class="stat-label">Avg Win</div>
-                    <div class="stat-value" id="avgWin">$0.00</div>
-                    <div class="stat-change positive">Average</div>
+                <div class="stat-card stat-card--pnl">
+                    <div class="stat-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="1" x2="12" y2="23"></line>
+                            <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"></path>
+                        </svg>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">Total PnL</div>
+                        <div class="stat-value" id="totalPnL">$0.00</div>
+                        <div class="stat-change" id="pnlChange">+$0.00</div>
+                    </div>
+                </div>
+                <div class="stat-card stat-card--winrate">
+                    <div class="stat-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"></polyline>
+                        </svg>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">Win Rate</div>
+                        <div class="stat-value" id="winRate">0%</div>
+                        <div class="stat-change" id="winRateChange">0 / 0 trade</div>
+                    </div>
+                </div>
+                <div class="stat-card stat-card--trades">
+                    <div class="stat-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path
+                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2">
+                            </path>
+                        </svg>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">Total Trade</div>
+                        <div class="stat-value" id="totalTrades">0</div>
+                        <div class="stat-change">Sepanjang waktu</div>
+                    </div>
+                </div>
+                <div class="stat-card stat-card--avg">
+                    <div class="stat-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="22,7 13.5,15.5 8.5,10.5 2,17"></polyline>
+                            <polyline points="16,7 22,7 22,13"></polyline>
+                        </svg>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">Avg. Win</div>
+                        <div class="stat-value" id="avgWin">$0.00</div>
+                        <div class="stat-change positive">Rata-rata profit</div>
+                    </div>
+                </div>
+                <div class="stat-card stat-card--loss">
+                    <div class="stat-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path
+                                d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z">
+                            </path>
+                            <line x1="12" y1="9" x2="12" y2="13"></line>
+                        </svg>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">Biggest Loss</div>
+                        <div class="stat-value negative" id="biggestLoss">$0.00</div>
+                        <div class="stat-change">Max drawdown</div>
+                    </div>
+                </div>
+                <div class="stat-card stat-card--rr">
+                    <div class="stat-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">Avg. Risk/Reward</div>
+                        <div class="stat-value" id="avgRR">0.00</div>
+                        <div class="stat-change">Ratio rata-rata</div>
+                    </div>
+                </div>
             </div>
 
-            <div class="content-grid">
+            <!-- Charts Grid -->
+            <div class="charts-grid">
                 <div class="chart-section">
                     <div class="section-header">
-                        <h2>Performance Overview</h2>
+                        <h2>Pertumbuhan Ekuitas</h2>
+                        <div class="chart-legend">
+                            <span class="legend-dot" style="background: var(--accent-primary)"></span>
+                            <span>Kumulatif PnL</span>
+                        </div>
                     </div>
                     <div class="chart-container">
                         <canvas id="performanceChart"></canvas>
                     </div>
-
-                <div class="trades-section">
+                </div>
+                <div class="chart-section chart-section--sm">
                     <div class="section-header">
-                        <h2>Recent Trades</h2>
-                        <div class="filter-group">
-                            <select id="filterSymbol" class="filter-select">
-                                <option value="">All Symbols</option>
-                            </select>
-                            <select id="filterType" class="filter-select">
-                                <option value="">All Types</option>
-                                <option value="long">Long</option>
-                                <option value="short">Short</option>
-                            </select>
+                        <h2>Win / Loss Ratio</h2>
+                    </div>
+                    <div class="chart-container chart-container--sm">
+                        <canvas id="winLossChart"></canvas>
+                    </div>
+                    <div class="winloss-legend">
+                        <div class="wl-item">
+                            <span class="wl-dot" style="background:#10b981"></span>
+                            <span class="wl-label">Win</span>
+                            <span class="wl-val" id="wlWins">0</span>
                         </div>
-                    <div class="table-container">
-                        <table class="trades-table">
-                            <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Symbol</th>
-                                    <th>Type</th>
-                                    <th>Entry</th>
-                                    <th>Exit</th>
-                                    <th>Size</th>
-                                    <th>P&L</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tradesTableBody">
-                            </tbody>
-                        </table>
+                        <div class="wl-item">
+                            <span class="wl-dot" style="background:#ef4444"></span>
+                            <span class="wl-label">Loss</span>
+                            <span class="wl-val" id="wlLosses">0</span>
+                        </div>
+                        <div class="wl-item">
+                            <span class="wl-dot" style="background:#f59e0b"></span>
+                            <span class="wl-label">Break Even</span>
+                            <span class="wl-val" id="wlBE">0</span>
+                        </div>
                     </div>
-                    <div class="empty-state" id="emptyState">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
-                        </svg>
-                        <p>No trades yet. Add your first trade to get started!</p>
-                    </div>
+                </div>
             </div>
+
+            <!-- Trades Section -->
+            <div class="trades-section">
+                <div class="section-header">
+                    <h2>Riwayat Trade</h2>
+                    <div class="filter-group">
+                        <select id="filterSymbol" class="filter-select">
+                            <option value="">Semua Aset</option>
+                        </select>
+                        <select id="filterType" class="filter-select">
+                            <option value="">Semua Posisi</option>
+                            <option value="long">Long</option>
+                            <option value="short">Short</option>
+                        </select>
+                        <select id="filterCategory" class="filter-select">
+                            <option value="">Semua Kategori</option>
+                            <option value="spot">Spot</option>
+                            <option value="futures">Futures</option>
+                        </select>
+                        <select id="filterOutcome" class="filter-select">
+                            <option value="">Semua Outcome</option>
+                            <option value="win">Win</option>
+                            <option value="loss">Loss</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="trades-table">
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Aset</th>
+                                <th>Platform</th>
+                                <th>Kategori</th>
+                                <th>Posisi</th>
+                                <th>Entry</th>
+                                <th>Exit</th>
+                                <th>TP / SL</th>
+                                <th>Jumlah</th>
+                                <th>PnL</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tradesTableBody"></tbody>
+                    </table>
+                </div>
+                <div class="empty-state" id="emptyState">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path
+                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2">
+                        </path>
+                    </svg>
+                    <h3>Belum ada trade</h3>
+                    <p>Klik "Tambah Trade" untuk mulai mencatat trading journal kamu.</p>
+                </div>
+            </div>
+
+        </div>
     </main>
 
-    <!-- Modal -->
+    <!-- Trade Modal -->
     <div class="modal" id="tradeModal">
         <div class="modal-backdrop"></div>
-        <div class="modal-content">
+        <div class="modal-content modal-content--lg">
             <div class="modal-header">
-                <h2 id="modalTitle">Add New Trade</h2>
-                <button class="modal-close" id="closeModal">
+                <div>
+                    <h2 id="modalTitle">Tambah Trade Baru</h2>
+                    <p class="modal-subtitle">Catat detail trading journal kamu</p>
+                </div>
+                <button class="modal-close" id="closeModal" title="Tutup">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <line x1="18" y1="6" x2="6" y2="18"></line>
                         <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -126,54 +296,246 @@
             </div>
             <form id="tradeForm">
                 <input type="hidden" id="tradeId">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="symbol">Symbol</label>
-                        <input type="text" id="symbol" placeholder="AAPL" required>
+
+                <!-- Section: Info Aset -->
+                <div class="form-section">
+                    <div class="form-section-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16"
+                            height="16">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                        Informasi Aset
+                    </div>
+                    <div class="form-row form-row--3">
+                        <div class="form-group">
+                            <label for="symbol">Nama Aset <span class="required">*</span></label>
+                            <input type="text" id="symbol" placeholder="BTC, ETH, SOL..." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tradeCategory">Kategori <span class="required">*</span></label>
+                            <select id="tradeCategory" required>
+                                <option value="">Pilih kategori</option>
+                                <option value="spot">Spot</option>
+                                <option value="futures">Futures / Perps</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="platform">Platform <span class="required">*</span></label>
+                            <select id="platform" required>
+                                <option value="">Pilih platform</option>
+                                <option value="Binance">Binance</option>
+                                <option value="Bybit">Bybit</option>
+                                <option value="OKX">OKX</option>
+                                <option value="KuCoin">KuCoin</option>
+                                <option value="HTX">HTX (Huobi)</option>
+                                <option value="Gate.io">Gate.io</option>
+                                <option value="Bitget">Bitget</option>
+                                <option value="MEXC">MEXC</option>
+                                <option value="Deribit">Deribit</option>
+                                <option value="dYdX">dYdX</option>
+                                <option value="Indodax">Indodax</option>
+                                <option value="Tokocrypto">Tokocrypto</option>
+                                <option value="Lainnya">Lainnya</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row form-row--2">
+                        <div class="form-group">
+                            <label for="tradeType">Posisi <span class="required">*</span></label>
+                            <div class="radio-group">
+                                <label class="radio-label" for="typeLong">
+                                    <input type="radio" id="typeLong" name="tradeType" value="long" required>
+                                    <span class="radio-custom radio-long">Long</span>
+                                </label>
+                                <label class="radio-label" for="typeShort">
+                                    <input type="radio" id="typeShort" name="tradeType" value="short">
+                                    <span class="radio-custom radio-short">Short</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group" id="leverageGroup">
+                            <label for="leverage">Leverage (khusus Futures)</label>
+                            <div class="input-with-suffix">
+                                <input type="number" id="leverage" min="1" max="125" step="1" placeholder="1">
+                                <span class="input-suffix">x</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section: Harga & Jumlah -->
+                <div class="form-section">
+                    <div class="form-section-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16"
+                            height="16">
+                            <line x1="12" y1="1" x2="12" y2="23"></line>
+                            <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"></path>
+                        </svg>
+                        Harga & Jumlah
+                    </div>
+                    <div class="form-row form-row--3">
+                        <div class="form-group">
+                            <label for="entryPrice">Harga Entry <span class="required">*</span></label>
+                            <div class="input-with-prefix">
+                                <span class="input-prefix">$</span>
+                                <input type="number" id="entryPrice" step="any" min="0" placeholder="0.00" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exitPrice">Harga Exit</label>
+                            <div class="input-with-prefix">
+                                <span class="input-prefix">$</span>
+                                <input type="number" id="exitPrice" step="any" min="0" placeholder="0.00">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity">Jumlah / Qty <span class="required">*</span></label>
+                            <input type="number" id="quantity" step="any" min="0" placeholder="0.001" required>
+                        </div>
+                    </div>
+                    <div class="form-row form-row--2">
+                        <div class="form-group">
+                            <label for="takeProfit">Take Profit (TP)</label>
+                            <div class="input-with-prefix">
+                                <span class="input-prefix">$</span>
+                                <input type="number" id="takeProfit" step="any" min="0" placeholder="Target harga TP">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="stopLoss">Stop Loss (SL)</label>
+                            <div class="input-with-prefix">
+                                <span class="input-prefix">$</span>
+                                <input type="number" id="stopLoss" step="any" min="0" placeholder="Harga cutloss">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row form-row--3">
+                        <div class="form-group">
+                            <label for="fees">Biaya / Fees</label>
+                            <div class="input-with-prefix">
+                                <span class="input-prefix">$</span>
+                                <input type="number" id="fees" step="any" min="0" placeholder="0.00">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="entryDate">Tanggal Entry <span class="required">*</span></label>
+                            <input type="date" id="entryDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="exitDate">Tanggal Exit</label>
+                            <input type="date" id="exitDate">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section: Analisa & Psikologi -->
+                <div class="form-section">
+                    <div class="form-section-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16"
+                            height="16">
+                            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path>
+                        </svg>
+                        Analisa & Psikologi Trading
+                    </div>
+                    <div class="form-row form-row--2">
+                        <div class="form-group">
+                            <label for="tradeSetup">Setup / Strategi</label>
+                            <select id="tradeSetup">
+                                <option value="">Pilih setup</option>
+                                <option value="Breakout">Breakout</option>
+                                <option value="Pullback">Pullback / Retest</option>
+                                <option value="Reversal">Reversal</option>
+                                <option value="Trend Following">Trend Following</option>
+                                <option value="Support Resistance">Support & Resistance</option>
+                                <option value="EMA Cross">EMA Cross</option>
+                                <option value="RSI Divergence">RSI Divergence</option>
+                                <option value="MACD Signal">MACD Signal</option>
+                                <option value="Scalping">Scalping</option>
+                                <option value="DCA">DCA (Dollar Cost Avg)</option>
+                                <option value="Lainnya">Lainnya</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="tradeEmotion">Kondisi Emosi Saat Entry</label>
+                            <select id="tradeEmotion">
+                                <option value="">Pilih kondisi</option>
+                                <option value="Tenang">😌 Tenang & Fokus</option>
+                                <option value="FOMO">😱 FOMO</option>
+                                <option value="Overconfident">😤 Terlalu percaya diri</option>
+                                <option value="Ragu">😟 Ragu-ragu</option>
+                                <option value="Revenge">😡 Revenge Trading</option>
+                                <option value="Netral">😐 Netral</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="tradeType">Type</label>
-                        <select id="tradeType" required>
-                            <option value="">Select type</option>
-                            <option value="long">Long</option>
-                            <option value="short">Short</option>
-                        </select>
-                    </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="entryPrice">Entry Price</label>
-                        <input type="number" id="entryPrice" step="0.01" placeholder="0.00" required>
+                        <label for="reason">Alasan & Analisa Entry</label>
+                        <textarea id="reason" rows="3"
+                            placeholder="Jelaskan alasan masuk posisi, analisa teknikal/fundamental, level-level penting..."
+                            class="form-textarea"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="exitPrice">Exit Price</label>
-                        <input type="number" id="exitPrice" step="0.01" placeholder="0.00" required>
+                        <label for="lessonLearned">Pelajaran yang Didapat (Post-Trade)</label>
+                        <textarea id="lessonLearned" rows="2"
+                            placeholder="Apa yang bisa diperbaiki? Apa yang sudah benar?"
+                            class="form-textarea"></textarea>
                     </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="quantity">Quantity</label>
-                        <input type="number" id="quantity" step="0.001" placeholder="0" required>
+                    <div class="form-row form-row--2">
+                        <div class="form-group">
+                            <label for="tradeStatus">Status Trade</label>
+                            <select id="tradeStatus">
+                                <option value="open">Open / Running</option>
+                                <option value="closed">Closed</option>
+                                <option value="partial">Partial Close</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="tags">Tags (pisahkan dengan koma)</label>
+                            <input type="text" id="tags" placeholder="btc, bull-run, daily...">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="entryDate">Entry Date</label>
-                        <input type="date" id="entryDate" required>
-                    </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="exitDate">Exit Date</label>
-                        <input type="date" id="exitDate" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="notes">Notes (Optional)</label>
-                        <input type="text" id="notes" placeholder="Trade notes...">
-                    </div>
+                </div>
+
                 <div class="form-actions">
-                    <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Save Trade</button>
+                    <button type="button" class="btn btn-outline" id="cancelBtn">Batal</button>
+                    <button type="submit" class="btn btn-primary">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16"
+                            height="16">
+                            <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"></path>
+                            <polyline points="17,21 17,13 7,13 7,21"></polyline>
+                            <polyline points="7,3 7,8 15,8"></polyline>
+                        </svg>
+                        Simpan Trade
+                    </button>
                 </div>
             </form>
         </div>
+    </div>
+
+    <!-- Trade Detail Modal -->
+    <div class="modal" id="detailModal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h2 id="detailTitle">Detail Trade</h2>
+                    <p class="modal-subtitle" id="detailSubtitle"></p>
+                </div>
+                <button class="modal-close" id="closeDetailModal" title="Tutup">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div id="detailContent" style="padding:24px;"></div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>

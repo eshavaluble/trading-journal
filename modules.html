@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul Belajar - Volubit Trading Journal</title>
+    <meta name="description"
+        content="Pelajari dasar-dasar trading kripto, analisa teknikal, dan psikologi trading di Volubit.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        .module-detail {
+            display: none;
+        }
+
+        .module-detail.active {
+            display: block;
+        }
+
+        .chapter-list {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .chapter-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .chapter-item:hover {
+            border-color: var(--accent-primary);
+        }
+
+        .chapter-num {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--accent-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .chapter-title {
+            flex: 1;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .chapter-dur {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .search-bar {
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 12px 16px 12px 44px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-family: inherit;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+        }
+
+        .search-bar svg {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .cat-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .cat-tab {
+            padding: 8px 16px;
+            border-radius: 99px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-secondary);
+            transition: all var(--transition);
+            font-family: inherit;
+        }
+
+        .cat-tab.active,
+        .cat-tab:hover {
+            background: rgba(99, 102, 241, 0.12);
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="22,7 13.5,15.5 8.5,10.5 2,17"></polyline>
+                    <polyline points="16,7 22,7 22,13"></polyline>
+                </svg>
+                <span>Volubit</span>
+            </a>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                    Dashboard
+                </a>
+                <a href="modules.html" class="nav-link active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15">
+                        <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"></path>
+                        <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"></path>
+                    </svg>
+                    Modul
+                </a>
+                <a href="risk-management.html" class="nav-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    </svg>
+                    Risk Management
+                </a>
+                <a href="about.html" class="nav-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    Tentang Kami
+                </a>
+            </nav>
+            <div class="user-menu">
+                <a href="index.html" class="btn btn-outline" style="flex-shrink:0;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15">
+                        <path d="M19 12H5M12 5l-7 7 7 7"></path>
+                    </svg>
+                    Dashboard
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="page-hero">
+                <div class="hero-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                        <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"></path>
+                        <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"></path>
+                    </svg>
+                    Pusat Pembelajaran
+                </div>
+                <h1>Modul Trading Kripto</h1>
+                <p>Dari pemula hingga profesional — kuasai analisa teknikal, manajemen risiko, dan psikologi trading
+                    dengan modul terstruktur kami.</p>
+            </div>
+
+            <!-- Stats bar -->
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px;">
+                <div class="info-card" style="padding:20px;text-align:center;">
+                    <div style="font-size:1.8rem;font-weight:800;color:var(--accent-primary);margin-bottom:4px;">12
+                    </div>
+                    <div
+                        style="font-size:0.8rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">
+                        Total Modul</div>
+                </div>
+                <div class="info-card" style="padding:20px;text-align:center;">
+                    <div style="font-size:1.8rem;font-weight:800;color:var(--accent-success);margin-bottom:4px;">48
+                    </div>
+                    <div
+                        style="font-size:0.8rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">
+                        Chapter</div>
+                </div>
+                <div class="info-card" style="padding:20px;text-align:center;">
+                    <div style="font-size:1.8rem;font-weight:800;color:var(--accent-warning);margin-bottom:4px;">6h+
+                    </div>
+                    <div
+                        style="font-size:0.8rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">
+                        Waktu Belajar</div>
+                </div>
+                <div class="info-card" style="padding:20px;text-align:center;">
+                    <div style="font-size:1.8rem;font-weight:800;color:var(--accent-info);margin-bottom:4px;">Gratis
+                    </div>
+                    <div style="font-size:0.8rem;color:var(--text-muted);font-weight:600;text-spacing:0.5px;">Akses
+                        Penuh</div>
+                </div>
+            </div>
+
+            <!-- Category Tabs -->
+            <div class="cat-tabs">
+                <button class="cat-tab active">Semua</button>
+                <button class="cat-tab">Pemula</button>
+                <button class="cat-tab">Analisa Teknikal</button>
+                <button class="cat-tab">Risk Management</button>
+                <button class="cat-tab">Psikologi</button>
+                <button class="cat-tab">Strategi</button>
+            </div>
+
+            <!-- Modules Grid -->
+            <div class="cards-grid-3">
+
+                <!-- Module 1 -->
+                <div class="module-card">
+                    <div class="module-card-header">
+                        <div class="module-card-icon" style="background:rgba(99,102,241,0.15);">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="2"
+                                width="22" height="22">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="8" x2="12" y2="12"></line>
+                                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                            </svg>
+                        </div>
+                        <span class="module-level level-beginner">Pemula</span>
+                    </div>
+                    <div class="module-card-body">
+                        <h3>Pengenalan Kripto & Blockchain</h3>
+                        <p>Pahami dasar-dasar teknologi blockchain, cara kerja kripto, dan mengapa aset digital ini
+                            revolusioner.</p>
+                        <div class="module-meta">
+                            <span>📚 5 Chapter</span>
+                            <span>⏱ 45 menit</span>
+                            <span style="color:var(--accent-success);">✓ Gratis</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 2 -->
+                <div class="module-card">
+                    <div class="module-card-header">
+                        <div class="module-card-icon" style="background:rgba(16,185,129,0.15);">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-success)" stroke-width="2"
+                                width="22" height="22">
+                                <polyline points="22,7 13.5,15.5 8.5,10.5 2,17"></polyline>
+                                <polyline points="16,7 22,7 22,13"></polyline>
+                            </svg>
+                        </div>
+                        <span class="module-level level-beginner">Pemula</span>
+                    </div>
+                    <div class="module-card-body">
+                        <h3>Membaca Candlestick Chart</h3>
+                        <p>Kuasai cara membaca chart candlestick, memahami pola, dan mengidentifikasi sinyal dari
+                            pergerakan harga.</p>
+                        <div class="module-meta">
+                            <span>📚 6 Chapter</span>
+                            <span>⏱ 60 menit</span>
+                            <span style="color:var(--accent-success);">✓ Gratis</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 3 -->
+                <div class="module-card">
+                    <div class="module-card-header">
+                        <div class="module-card-icon" style="background:rgba(245,158,11,0.15);">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-warning)" stroke-width="2"
+                                width="22" height="22">
+                                <line x1="18" y1="20" x2="18" y2="10"></line>
+                                <line x1="12" y1="20" x2="12" y2="4"></line>
+                                <line x1="6" y1="20" x2="6" y2="14"></line>
+                            </svg>
+                        </div>
+                        <span class="module-level level-intermediate">Menengah</span>
+                    </div>
+                    <div class="module-card-body">
+                        <h3>Support, Resistance & Tren</h3>
+                        <p>Identifikasi level support/resistance kunci, garis tren, dan cara memanfaatkannya untuk entry
+                            dan exit yang presisi.</p>
+                        <div class="module-meta">
+                            <span>📚 4 Chapter</span>
+                            <span>⏱ 50 menit</span>
+                            <span style="color:var(--accent-success);">✓ Gratis</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 4 -->
+                <div class="module-card">
+                    <div class="module-card-header">
+                        <div class="module-card-icon" style="background:rgba(6,182,212,0.15);">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-info)" stroke-width="2" width="22"
+                                height="22">
+                                <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"></polyline>
+                            </svg>
+                        </div>
+                        <span class="module-level level-intermediate">Menengah</span>
+                    </div>
+                    <div class="module-card-body">
+                        <h3>Indikator Teknikal Populer</h3>
+                        <p>Pelajari RSI, MACD, Bollinger Bands, EMA, dan indikator populer lainnya serta cara
+                            mengombinasikannya.</p>
+                        <div class="module-meta">
+                            <span>📚 7 Chapter</span>
+                            <span>⏱ 75 menit</span>
+                            <span style="color:var(--accent-success);">✓ Gratis</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 5 -->
+                <div class="module-card">
+                    <div class="module-card-header">
+                        <div class="module-card-icon" style="background:rgba(239,68,68,0.15);">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-danger)" stroke-width="2"
+                                width="22" height="22">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            </svg>
+                        </div>
+                        <span class="module-level level-intermediate">Menengah</span>
+                    </div>
+                    <div class="module-card-body">
+                        <h3>Manajemen Risiko Trading</h3>
+                        <p>Pelajari cara menghitung position size, menetapkan risk per trade, dan melindungi modal dari
+                            kerugian besar.</p>
+                        <div class="module-meta">
+                            <span>📚 5 Chapter</span>
+                            <span>⏱ 55 menit</span>
+                            <span style="color:var(--accent-success);">✓ Gratis</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 6 -->
+                <div class="module-card">
+                    <div class="module-card-header">
+                        <div class="module-card-icon" style="background:rgba(139,92,246,0.15);">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-secondary)" stroke-width="2"
+                                width="22" height="22">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M12 8v4l3 3"></path>
+                            </svg>
+                        </div>
+                        <span class="module-level level-advanced">Lanjutan</span>
+                    </div>
+                    <div class="module-card-body">
+                        <h3>Psikologi & Disiplin Trading</h3>
+                        <p>Atasi FOMO, revenge trading, dan overconfidence. Bangun mindset trader profesional yang
+                            konsisten dan disiplin.</p>
+                        <div class="module-meta">
+                            <span>📚 6 Chapter</span>
+                            <span>⏱ 65 menit</span>
+                            <span style="color:var(--accent-success);">✓ Gratis</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 7 -->
+                <div class="module-card">
+                    <div class="module-card-header">
+                        <div class="module-card-icon" style="background:rgba(16,185,129,0.12);">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-success)" stroke-width="2"
+                                width="22" height="22">
+                                <path d="M2 20h.01M7 20v-4M12 20v-8M17 20V8M22 4l-5 5-4-4-6 6"></path>
+                            </svg>
+                        </div>
+                        <span class="module-level level-intermediate">Menengah</span>
+                    </div>
+                    <div class="module-card-body">
+                        <h3>Trading Futures & Leverage</h3>
+                        <p>Pahami cara kerja futures, penggunaan leverage yang bijak, liquidation, dan strategi hedging.
+                        </p>
+                        <div class="module-meta">
+                            <span>📚 5 Chapter</span>
+                            <span>⏱ 70 menit</span>
+                            <span style="color:var(--accent-success);">✓ Gratis</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 8 -->
+                <div class="module-card">
+                    <div class="module-card-header">
+                        <div class="module-card-icon" style="background:rgba(245,158,11,0.12);">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-warning)" stroke-width="2"
+                                width="22" height="22">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                <line x1="8" y1="21" x2="16" y2="21"></line>
+                                <line x1="12" y1="17" x2="12" y2="21"></line>
+                            </svg>
+                        </div>
+                        <span class="module-level level-advanced">Lanjutan</span>
+                    </div>
+                    <div class="module-card-body">
+                        <h3>Analisa On-Chain & Fundamental</h3>
+                        <p>Gunakan data on-chain, tokenomics, dan fundamental proyek untuk membuat keputusan trading
+                            yang lebih cerdas.</p>
+                        <div class="module-meta">
+                            <span>📚 4 Chapter</span>
+                            <span>⏱ 80 menit</span>
+                            <span style="color:var(--accent-success);">✓ Gratis</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 9 -->
+                <div class="module-card">
+                    <div class="module-card-header">
+                        <div class="module-card-icon" style="background:rgba(99,102,241,0.12);">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="2"
+                                width="22" height="22">
+                                <path
+                                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2">
+                                </path>
+                            </svg>
+                        </div>
+                        <span class="module-level level-beginner">Pemula</span>
+                    </div>
+                    <div class="module-card-body">
+                        <h3>Cara Menggunakan Trading Journal</h3>
+                        <p>Maksimalkan penggunaan Volubit Trading Journal untuk meningkatkan performa dan belajar dari
+                            setiap trade.</p>
+                        <div class="module-meta">
+                            <span>📚 3 Chapter</span>
+                            <span>⏱ 30 menit</span>
+                            <span style="color:var(--accent-success);">✓ Gratis</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- CTA Banner -->
+            <div class="section-block"
+                style="background:linear-gradient(135deg,rgba(99,102,241,0.15),rgba(139,92,246,0.1));border-color:rgba(99,102,241,0.3);text-align:center;padding:40px;">
+                <h2 style="font-size:1.5rem;margin-bottom:10px;">Siap Mulai Belajar? 🚀</h2>
+                <p
+                    style="color:var(--text-secondary);margin-bottom:24px;max-width:480px;margin-left:auto;margin-right:auto;">
+                    Mulai dari modul pemula dan tingkatkan skill trading kamu secara bertahap. Semua materi bisa diakses
+                    gratis.</p>
+                <a href="index.html" class="btn btn-primary" style="font-size:1rem;padding:14px 32px;">Mulai Trading
+                    Journal</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Category tab filter
+        document.querySelectorAll('.cat-tab').forEach(function (tab) {
+            tab.addEventListener('click', function () {
+                document.querySelectorAll('.cat-tab').forEach(function (t) { t.classList.remove('active'); });
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+
+</html>

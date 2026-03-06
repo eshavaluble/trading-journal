@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Management - Volubit Trading Journal</title>
+    <meta name="description"
+        content="Kalkulator position size, risk/reward, dan panduan risk management untuk trader kripto.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="22,7 13.5,15.5 8.5,10.5 2,17"></polyline>
+                    <polyline points="16,7 22,7 22,13"></polyline>
+                </svg>
+                <span>Volubit</span>
+            </a>
+            <nav class="nav">
+                <a href="index.html" class="nav-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" width="15" height="15">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>Dashboard</a>
+                <a href="modules.html" class="nav-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" width="15" height="15">
+                        <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"></path>
+                        <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"></path>
+                    </svg>Modul</a>
+                <a href="risk-management.html" class="nav-link active"><svg viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" width="15" height="15">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    </svg>Risk Management</a>
+                <a href="about.html" class="nav-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" width="15" height="15">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>Tentang Kami</a>
+            </nav>
+            <div class="user-menu">
+                <a href="index.html" class="btn btn-outline" style="flex-shrink:0;"><svg viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" width="15" height="15">
+                        <path d="M19 12H5M12 5l-7 7 7 7"></path>
+                    </svg>Dashboard</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="page-hero">
+                <div class="hero-badge"
+                    style="background:rgba(239,68,68,0.1);border-color:rgba(239,68,68,0.3);color:var(--accent-danger);">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    </svg>
+                    Risk Management Center
+                </div>
+                <h1>Kelola Risiko, Jaga Modal</h1>
+                <p>Kalkulator position size dan panduan risk management untuk bertahan lama di market kripto.</p>
+            </div>
+
+            <div class="cards-grid-3" style="margin-bottom:28px;">
+                <div class="info-card">
+                    <div class="info-card-icon" style="background:rgba(239,68,68,0.12);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-danger)" stroke-width="2" width="22"
+                            height="22">
+                            <path
+                                d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z">
+                            </path>
+                            <line x1="12" y1="9" x2="12" y2="13"></line>
+                        </svg>
+                    </div>
+                    <h3>Batasi Risiko per Trade</h3>
+                    <p>Aturan emas: jangan risiko lebih dari 1-2% modal per trade. Ini memastikan kamu bisa bertahan
+                        dari puluhan loss berturut-turut.</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-card-icon" style="background:rgba(16,185,129,0.12);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-success)" stroke-width="2" width="22"
+                            height="22">
+                            <polyline points="22,7 13.5,15.5 8.5,10.5 2,17"></polyline>
+                            <polyline points="16,7 22,7 22,13"></polyline>
+                        </svg>
+                    </div>
+                    <h3>Risk/Reward Min 1:2</h3>
+                    <p>Dengan R/R 1:2, win rate 40% saja sudah cukup untuk profit konsisten. Selektif dalam memilih
+                        trade adalah kunci utama.</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-card-icon" style="background:rgba(245,158,11,0.12);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-warning)" stroke-width="2" width="22"
+                            height="22">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12,6 12,12 16,14"></polyline>
+                        </svg>
+                    </div>
+                    <h3>Patuhi Stop Loss</h3>
+                    <p>Stop loss bukan saran — ini kewajiban. Sekali harga menyentuh SL, langsung exit tanpa "nunggu
+                        sebentar".</p>
+                </div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px;">
+                <!-- Position Size Calculator -->
+                <div class="section-block">
+                    <h2>🧮 Kalkulator Position Size</h2>
+                    <p style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:20px;">Hitung berapa banyak
+                        yang harus dibeli berdasarkan risiko dan stop loss kamu.</p>
+                    <div class="form-group" style="margin-bottom:12px;">
+                        <label>Total Modal Akun</label>
+                        <div class="input-with-prefix"><span class="input-prefix">$</span><input type="number"
+                                id="accountSize" placeholder="10000" value="10000"></div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:12px;">
+                        <label>Risiko per Trade (%)</label>
+                        <div class="input-with-suffix"><input type="number" id="riskPercent" placeholder="2" value="2"
+                                min="0" max="100"><span class="input-suffix">%</span></div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:12px;">
+                        <label>Harga Entry</label>
+                        <div class="input-with-prefix"><span class="input-prefix">$</span><input type="number"
+                                id="calcEntry" placeholder="50000"></div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:12px;">
+                        <label>Harga Stop Loss</label>
+                        <div class="input-with-prefix"><span class="input-prefix">$</span><input type="number"
+                                id="calcSL" placeholder="48000"></div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:16px;">
+                        <label>Leverage (1x = Spot)</label>
+                        <div class="input-with-suffix"><input type="number" id="calcLeverage" placeholder="1" value="1"
+                                min="1" max="125"><span class="input-suffix">x</span></div>
+                    </div>
+                    <button class="btn btn-primary" onclick="calcPositionSize()"
+                        style="width:100%;justify-content:center;">Hitung Position Size</button>
+                    <div class="risk-result" id="calcResult" style="display:none;">
+                        <div class="risk-result-title">Hasil Kalkulasi</div>
+                        <div class="risk-result-grid">
+                            <div>
+                                <div class="risk-result-label">Risiko ($)</div>
+                                <div class="risk-result-value" id="resDollarRisk" style="color:var(--accent-danger)">—
+                                </div>
+                            </div>
+                            <div>
+                                <div class="risk-result-label">Qty (unit)</div>
+                                <div class="risk-result-value" id="resQty" style="color:var(--accent-primary)">—</div>
+                            </div>
+                            <div>
+                                <div class="risk-result-label">Nilai Posisi</div>
+                                <div class="risk-result-value" id="resTotal" style="color:var(--accent-success)">—</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RR Calculator -->
+                <div class="section-block">
+                    <h2>⚖️ Kalkulator Risk/Reward</h2>
+                    <p style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:20px;">Evaluasi apakah sebuah
+                        trade worth it sebelum kamu masuk posisi.</p>
+                    <div class="form-group" style="margin-bottom:12px;">
+                        <label>Harga Entry</label>
+                        <div class="input-with-prefix"><span class="input-prefix">$</span><input type="number"
+                                id="rrEntry" placeholder="50000"></div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:12px;">
+                        <label>Target Take Profit</label>
+                        <div class="input-with-prefix"><span class="input-prefix">$</span><input type="number" id="rrTP"
+                                placeholder="55000"></div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:12px;">
+                        <label>Stop Loss</label>
+                        <div class="input-with-prefix"><span class="input-prefix">$</span><input type="number" id="rrSL"
+                                placeholder="48000"></div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:16px;">
+                        <label>Modal yang Dirisikokan</label>
+                        <div class="input-with-prefix"><span class="input-prefix">$</span><input type="number"
+                                id="rrCapital" placeholder="200"></div>
+                    </div>
+                    <button class="btn btn-primary" onclick="calcRR()" style="width:100%;justify-content:center;">Hitung
+                        R/R Ratio</button>
+                    <div class="risk-result" id="rrResult" style="display:none;">
+                        <div class="risk-result-title">Hasil Kalkulasi</div>
+                        <div class="risk-result-grid">
+                            <div>
+                                <div class="risk-result-label">R/R Ratio</div>
+                                <div class="risk-result-value" id="rrRatio" style="color:var(--accent-primary)">—</div>
+                            </div>
+                            <div>
+                                <div class="risk-result-label">Potensi Profit</div>
+                                <div class="risk-result-value" id="rrProfit" style="color:var(--accent-success)">—</div>
+                            </div>
+                            <div>
+                                <div class="risk-result-label">Max Loss</div>
+                                <div class="risk-result-value" id="rrLoss" style="color:var(--accent-danger)">—</div>
+                            </div>
+                        </div>
+                        <div id="rrVerdict"
+                            style="margin-top:12px;padding:10px;border-radius:var(--radius-sm);font-size:0.85rem;font-weight:600;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 10 Rules -->
+            <div class="section-block">
+                <h2>📋 10 Aturan Emas Risk Management</h2>
+                <div class="rule-item">
+                    <div class="rule-num">1</div>
+                    <div class="rule-content">
+                        <h4>Gunakan Stop Loss di Setiap Trade</h4>
+                        <p>SL adalah perlindungan wajib modal kamu dari kerugian yang tidak terkontrol. Tanpa SL =
+                            berjudi.</p>
+                    </div>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-num">2</div>
+                    <div class="rule-content">
+                        <h4>Risiko Maksimal 1-2% per Trade</h4>
+                        <p>Dengan risiko 2%, butuh 50 loss berturut-turut untuk menghabiskan modal. Konsistensi lebih
+                            penting dari sekali besar.</p>
+                    </div>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-num">3</div>
+                    <div class="rule-content">
+                        <h4>Hitung R/R Sebelum Entry</h4>
+                        <p>Cari trade dengan R/R minimal 1:2. Win rate 40% saja sudah profit jika R/R rata-rata 1:2.</p>
+                    </div>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-num">4</div>
+                    <div class="rule-content">
+                        <h4>Jangan Average Down saat Losing</h4>
+                        <p>Menambah posisi saat harga turun berharap recover adalah cara tercepat menghabiskan modal.
+                        </p>
+                    </div>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-num">5</div>
+                    <div class="rule-content">
+                        <h4>Batasi Total Exposure per Aset</h4>
+                        <p>Jangan ekspos lebih dari 10-15% total modal dalam satu aset. Diversifikasi melindungi dari
+                            black swan.</p>
+                    </div>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-num">6</div>
+                    <div class="rule-content">
+                        <h4>Jangan Trading saat Emosi Tidak Stabil</h4>
+                        <p>Setelah loss besar, ambil jeda. Trading saat frustrasi atau euforia hampir selalu
+                            menghasilkan keputusan buruk.</p>
+                    </div>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-num">7</div>
+                    <div class="rule-content">
+                        <h4>Gunakan Leverage dengan Bijak</h4>
+                        <p>Leverage 10-20x sudah cukup untuk sebagian besar trader. Leverage tinggi bisa liquidate dari
+                            pergerakan kecil.</p>
+                    </div>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-num">8</div>
+                    <div class="rule-content">
+                        <h4>Catat Semua Trade di Journal</h4>
+                        <p>Kamu tidak bisa memperbaiki apa yang tidak diukur. Volubit Trading Journal ada untuk ini.</p>
+                    </div>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-num">9</div>
+                    <div class="rule-content">
+                        <h4>Review Performa Secara Rutin</h4>
+                        <p>Evaluasi trade minimal seminggu sekali. Identifikasi pola kesalahan dan perbaiki sebelum
+                            kerugian bertumpuk.</p>
+                    </div>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-num">10</div>
+                    <div class="rule-content">
+                        <h4>Hanya Gunakan Uang yang Siap Hilang</h4>
+                        <p>Jangan pernah trading dengan uang kebutuhan hidup, cicilan, atau dana darurat.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function fmtNum(n) { return parseFloat(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+        function calcPositionSize() {
+            var acc = parseFloat(document.getElementById('accountSize').value);
+            var risk = parseFloat(document.getElementById('riskPercent').value) / 100;
+            var entry = parseFloat(document.getElementById('calcEntry').value);
+            var sl = parseFloat(document.getElementById('calcSL').value);
+            var lev = parseFloat(document.getElementById('calcLeverage').value) || 1;
+            if (!acc || !risk || !entry || !sl) { alert('Isi semua field!'); return; }
+            if (entry === sl) { alert('Entry dan SL tidak boleh sama!'); return; }
+            var dollarRisk = acc * risk;
+            var slDist = Math.abs(entry - sl);
+            var qty = dollarRisk / slDist;
+            var posVal = (qty * entry) / lev;
+            document.getElementById('resDollarRisk').textContent = '$' + fmtNum(dollarRisk);
+            document.getElementById('resQty').textContent = qty.toFixed(6) + ' unit';
+            document.getElementById('resTotal').textContent = '$' + fmtNum(posVal);
+            document.getElementById('calcResult').style.display = 'block';
+        }
+        function calcRR() {
+            var entry = parseFloat(document.getElementById('rrEntry').value);
+            var tp = parseFloat(document.getElementById('rrTP').value);
+            var sl = parseFloat(document.getElementById('rrSL').value);
+            var cap = parseFloat(document.getElementById('rrCapital').value);
+            if (!entry || !tp || !sl) { alert('Isi Entry, TP, dan SL!'); return; }
+            if (entry === sl) { alert('Entry dan SL tidak boleh sama!'); return; }
+            var reward = Math.abs(tp - entry);
+            var risk = Math.abs(entry - sl);
+            var ratio = reward / risk;
+            var profitDollar = cap ? (cap * ratio) : null;
+            document.getElementById('rrRatio').textContent = '1 : ' + ratio.toFixed(2);
+            document.getElementById('rrProfit').textContent = profitDollar ? '+$' + fmtNum(profitDollar) : '+' + ((reward / entry) * 100).toFixed(2) + '%';
+            document.getElementById('rrLoss').textContent = cap ? '-$' + fmtNum(cap) : '-' + ((risk / entry) * 100).toFixed(2) + '%';
+            var v = document.getElementById('rrVerdict');
+            if (ratio >= 2) { v.style.background = 'rgba(16,185,129,0.12)'; v.style.color = 'var(--accent-success)'; v.textContent = '✅ Trade ini layak! R/R ' + ratio.toFixed(2) + ':1 melebihi standar minimum 2:1.'; }
+            else if (ratio >= 1) { v.style.background = 'rgba(245,158,11,0.12)'; v.style.color = 'var(--accent-warning)'; v.textContent = '⚠️ R/R ' + ratio.toFixed(2) + ':1 kurang ideal. Cari entry yang lebih baik.'; }
+            else { v.style.background = 'rgba(239,68,68,0.12)'; v.style.color = 'var(--accent-danger)'; v.textContent = '❌ R/R ' + ratio.toFixed(2) + ':1 terlalu rendah. Skip trade ini!'; }
+            document.getElementById('rrResult').style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>
